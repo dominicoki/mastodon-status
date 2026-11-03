@@ -2,12 +2,22 @@ name: Mastodon Status Monitor
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Mastodon Homepage
+      - name: Check Homepage
         run: |
           curl -I https://social.pureheart.page
+
+      - name: Check API
+        run: |
+          curl -I https://social.pureheart.page/api/v2/instance
+
+      - name: Check NodeInfo
+        run: |
+          curl -I https://social.pureheart.page/.well-known/nodeinfo
