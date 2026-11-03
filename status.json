@@ -1,18 +1,5 @@
 {
-  "lastUpdated": "2026-11-03T00:00:00Z",
-  "overall": "operational",
-  "services": [
-    {
-      "name": "Frontend",
-      "status": "operational"
-    },
-    {
-      "name": "API",
-      "status": "operational"
-    },
-    {
-      "name": "Federation",
-      "status": "operational"
-    }
-  ]
+  "lastUpdated": "",
+  "overall": "unknown",
+  "services": []
 }
