@@ -1,35 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>PureHeart Status</title>
 
 <style>
-body{
-    font-family:Arial;
-    max-width:800px;
-    margin:auto;
-    padding:20px;
+
+body {
+    font-family: Arial, sans-serif;
+    background: #181818;
+    color: #f5f5f5;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
 }
 
-.banner{
-    background:#2ea043;
-    color:white;
-    padding:15px;
-    border-radius:10px;
-    font-size:1.2em;
+h1 {
+    margin-bottom: 20px;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
+.banner {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 25px;
 }
 
-td{
-    padding:12px;
-    border-bottom:1px solid #ddd;
+.operational {
+    background: #2ea043;
 }
+
+.outage {
+    background: #da3633;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    text-align: left;
+}
+
+.status-ok {
+    color: #3fb950;
+    font-weight: bold;
+}
+
+.status-bad {
+    color: #ff7b72;
+    font-weight: bold;
+}
+
+.footer {
+    margin-top: 20px;
+    color: #999;
+}
+
 </style>
 </head>
 
@@ -37,37 +72,28 @@ td{
 
 <h1>PureHeart Status</h1>
 
-<div class="banner">
-✅ All Systems Operational
+<div id="banner" class="banner operational">
+Loading...
 </div>
 
 <table>
+<thead>
 <tr>
-<td>Web Frontend</td>
-<td>🟢 Operational</td>
+<th>Service</th>
+<th>Status</th>
 </tr>
+</thead>
 
-<tr>
-<td>API</td>
-<td>🟢 Operational</td>
-</tr>
-
-<tr>
-<td>Federation</td>
-<td>🟢 Operational</td>
-</tr>
+<tbody id="services">
+</tbody>
 </table>
 
-<table>
-    <tbody id="services"></tbody>
-</table>
-
-<p>
+<div class="footer">
 Last Updated:
-<span id="updated"></span>
-</p>
+<span id="updated">Loading...</span>
+</div>
 
 script.js</script>
-    
+
 </body>
 </html>
