@@ -1,5 +1,18 @@
 {
-  "lastUpdated": "",
-  "overall": "unknown",
-  "services": []
+  "lastUpdated": "2026-11-03T01:44:49Z",
+  "overall": "operational",
+  "services": [
+    {
+      "name": "Web Frontend",
+      "status": "operational"
+    },
+    {
+      "name": "Mastodon API",
+      "status": "operational"
+    },
+    {
+      "name": "NodeInfo",
+      "status": "operational"
+    }
+  ]
 }
