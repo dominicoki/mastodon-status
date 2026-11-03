@@ -1,0 +1,27 @@
+name: Mastodon Status
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Frontend
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://social.pureheart.page)
+
+          if [ "$STATUS" = "200" ]; then
+            echo "UP=true" >> $GITHUB_ENV
+          else
+            echo "UP=false" >> $GITHUB_ENV
+          fi
