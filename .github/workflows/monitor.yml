@@ -5,19 +5,58 @@ on:
   schedule:
     - cron: "*/5 * * * *"
 
+permissions:
+  contents: write
+
 jobs:
   monitor:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Homepage
-        run: |
-          curl -I https://social.pureheart.page
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Check API
+      - name: Generate Status
         run: |
-          curl -I https://social.pureheart.page/api/v2/instance
+          FRONTEND=$(curl -s -o /dev/null -w "%{http_code}" https://social.pureheart.page/)
+          API=$(curl -s -o /dev/null -w "%{http_code}" https://social.pureheart.page/api/v2/instance)
+          NODEINFO=$(curl -s -o /dev/null -w "%{http_code}" https://social.pureheart.page/.well-known/nodeinfo)
 
-      - name: Check NodeInfo
+          if [ "$FRONTEND" = "200" ] && [ "$API" = "200" ] && [ "$NODEINFO" = "200" ]; then
+            OVERALL="operational"
+          else
+            OVERALL="major_outage"
+          fi
+
+          cat > status.json <<EOF
+          {
+            "lastUpdated": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "overall": "$OVERALL",
+            "services": [
+              {
+                "name": "Web Frontend",
+                "status": "$([ "$FRONTEND" = "200" ] && echo operational || echo outage)"
+              },
+              {
+                "name": "Mastodon API",
+                "status": "$([ "$API" = "200" ] && echo operational || echo outage)"
+              },
+              {
+                "name": "NodeInfo",
+                "status": "$([ "$NODEINFO" = "200" ] && echo operational || echo outage)"
+              }
+            ]
+          }
+          EOF
+
+      - name: Commit Changes
         run: |
-          curl -I https://social.pureheart.page/.well-known/nodeinfo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add status.json
+
+          git diff --cached --quiet || (
+            git commit -m "Update status"
+            git push
+          )
