@@ -1,18 +1,18 @@
 {
-  "lastUpdated": "2026-11-11T06:42:02Z",
-  "overall": "operational",
+  "lastUpdated": "2026-11-11T07:57:33Z",
+  "overall": "major_outage",
   "services": [
     {
       "name": "Web Frontend",
-      "status": "operational"
+      "status": "outage"
     },
     {
       "name": "Mastodon API",
-      "status": "operational"
+      "status": "outage"
     },
     {
       "name": "NodeInfo",
-      "status": "operational"
+      "status": "outage"
     }
   ]
 }
